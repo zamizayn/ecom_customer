@@ -62,7 +62,7 @@ class AuthScreen extends StatelessWidget {
               padding: const EdgeInsets.only(
                   left: 16, top: 32, right: 16, bottom: 8),
               child: Text(
-                'Welcome to ABS'.tr(),
+                'Welcome to Lelayastar'.tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Color(COLOR_PRIMARY),

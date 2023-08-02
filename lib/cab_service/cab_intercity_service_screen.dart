@@ -20,7 +20,7 @@ import 'package:emartconsumer/services/helper.dart';
 import 'package:emartconsumer/ui/auth/AuthScreen.dart';
 import 'package:emartconsumer/ui/chat_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart' as get_cord_address;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -711,12 +711,12 @@ class _CabInterCityServiceScreenState extends State<CabInterCityServiceScreen> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      DatePicker.showDateTimePicker(context, showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
-                        setState(() {
-                          selectedDateTime = date;
-                          dateController.text = DateFormat('dd-MM-yyyy HH:mm').format(date);
-                        });
-                      }, minTime: DateTime.now(), currentTime: DateTime.now(), locale: LocaleType.en);
+                      // DatePicker.showDateTimePicker(context, showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
+                      //   setState(() {
+                      //     selectedDateTime = date;
+                      //     dateController.text = DateFormat('dd-MM-yyyy HH:mm').format(date);
+                      //   });
+                      // }, minTime: DateTime.now(), currentTime: DateTime.now(), locale: LocaleType.en);
                     },
                     child: TextFormField(
                       controller: dateController,
@@ -751,12 +751,12 @@ class _CabInterCityServiceScreenState extends State<CabInterCityServiceScreen> {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            DatePicker.showDateTimePicker(context, showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
-                              setState(() {
-                                selectedReturnDateTime = date;
-                                returnDateController.text = DateFormat('dd-MM-yyyy HH:mm').format(date);
-                              });
-                            }, minTime: DateTime.now(), currentTime: DateTime.now(), locale: LocaleType.en);
+                            // DatePicker.showDateTimePicker(context, showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
+                            //   setState(() {
+                            //     selectedReturnDateTime = date;
+                            //     returnDateController.text = DateFormat('dd-MM-yyyy HH:mm').format(date);
+                            //   });
+                            // }, minTime: DateTime.now(), currentTime: DateTime.now(), locale: LocaleType.en);
                           },
                           child: TextFormField(
                             controller: returnDateController,

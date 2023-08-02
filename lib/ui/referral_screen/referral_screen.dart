@@ -65,9 +65,14 @@ class _ReferralScreenState extends State<ReferralScreen> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/background_image_referral.png'), fit: BoxFit.cover)),
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/background_image_referral.png'),
+                              fit: BoxFit.cover)),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,14 +86,19 @@ class _ReferralScreenState extends State<ReferralScreen> {
                             ),
                             const Text(
                               "Refer your friends and",
-                              style: TextStyle(color: Colors.white, letterSpacing: 1.5),
+                              style: TextStyle(
+                                  color: Colors.white, letterSpacing: 1.5),
                             ),
                             const SizedBox(
                               height: 8,
                             ),
                             Text(
                               "Earn $symbol${double.parse(referralAmount.toString()).toStringAsFixed(decimal)} each",
-                              style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1.5),
+                              style: const TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.5),
                             ),
                             const SizedBox(
                               height: 10,
@@ -110,7 +120,11 @@ class _ReferralScreenState extends State<ReferralScreen> {
                       children: [
                         const Text(
                           "Invite Friend & Businesses",
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, letterSpacing: 2.0, fontSize: 18),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 2.0,
+                              fontSize: 18),
                         ),
                         const SizedBox(
                           height: 20,
@@ -120,7 +134,10 @@ class _ReferralScreenState extends State<ReferralScreen> {
                           child: Text(
                             "Invite Foodie to sign up using your code and you’ll get $symbol${double.parse(referralAmount).toStringAsFixed(decimal)} after successfully order complete.",
                             textAlign: TextAlign.center,
-                            style: const TextStyle(color: Color(0XFF666666), fontWeight: FontWeight.w500, letterSpacing: 2.0),
+                            style: const TextStyle(
+                                color: Color(0XFF666666),
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 2.0),
                           ),
                         ),
                         const SizedBox(
@@ -128,7 +145,9 @@ class _ReferralScreenState extends State<ReferralScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            FlutterClipboard.copy(referralModel!.referralCode.toString()).then((value) {
+                            FlutterClipboard.copy(
+                                    referralModel!.referralCode.toString())
+                                .then((value) {
                               SnackBar snackBar = SnackBar(
                                 content: Text(
                                   "Coupon code copied".tr(),
@@ -137,7 +156,8 @@ class _ReferralScreenState extends State<ReferralScreen> {
                                 ),
                                 backgroundColor: Colors.green,
                               );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             });
                           },
                           child: DottedBorder(
@@ -151,7 +171,8 @@ class _ReferralScreenState extends State<ReferralScreen> {
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: Container(
                                   height: 25,
-                                  width: MediaQuery.of(context).size.width * 0.30,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.30,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(2),
                                     color: const Color(COUPON_BG_COLOR),
@@ -162,19 +183,25 @@ class _ReferralScreenState extends State<ReferralScreen> {
                                     textAlign: TextAlign.center,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.bold, letterSpacing: 0.5, color: Color(COLOR_PRIMARY)),
+                                    style: TextStyle(
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 0.5,
+                                        color: Color(COLOR_PRIMARY)),
                                   )),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 40.0, left: 40.0, top: 60),
+                          padding: const EdgeInsets.only(
+                              right: 40.0, left: 40.0, top: 60),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFFF662E),
-                                padding: const EdgeInsets.only(top: 12, bottom: 12),
+                                padding:
+                                    const EdgeInsets.only(top: 12, bottom: 12),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0),
                                   side: const BorderSide(
@@ -183,7 +210,8 @@ class _ReferralScreenState extends State<ReferralScreen> {
                                 ),
                               ),
                               onPressed: () async {
-                                await showProgress(context, "Please wait".tr(), false);
+                                await showProgress(
+                                    context, "Please wait".tr(), false);
                                 share();
                               },
                               child: Text(
@@ -191,7 +219,9 @@ class _ReferralScreenState extends State<ReferralScreen> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: isDarkMode(context) ? Colors.black : Colors.white,
+                                  color: isDarkMode(context)
+                                      ? Colors.black
+                                      : Colors.white,
                                 ),
                               ),
                             ),
@@ -207,9 +237,9 @@ class _ReferralScreenState extends State<ReferralScreen> {
   Future<void> share() async {
     hideProgress();
     await FlutterShare.share(
-      title: 'ABS',
+      title: 'Lelayastar',
       text:
-          'Hey there, thanks for choosing ABS. Hope you love our product. If you do, share it with your friends using ${referralModel!.referralCode.toString()} and get $symbol${double.parse(referralAmount).toStringAsFixed(decimal)} when order completed',
+          'Hey there, thanks for choosing Lelayastar. Hope you love our product. If you do, share it with your friends using ${referralModel!.referralCode.toString()} and get $symbol${double.parse(referralAmount).toStringAsFixed(decimal)} when order completed',
     );
   }
 }

@@ -106,7 +106,7 @@ class StoreSelectionState extends State<StoreSelection> {
         appBar: AppBar(
           centerTitle: false,
           title: Text(
-            "ABS".tr(),
+            "Lelayastar".tr(),
             textAlign: TextAlign.left,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
           ),
@@ -213,8 +213,14 @@ class StoreSelectionState extends State<StoreSelection> {
                       height: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: isDarkMode(context) ? const Color(DarkContainerBorderColor) : Colors.grey.shade100, width: 1),
-                          color: isDarkMode(context) ? const Color(DarkContainerColor) : Colors.white,
+                          border: Border.all(
+                              color: isDarkMode(context)
+                                  ? const Color(DarkContainerBorderColor)
+                                  : Colors.grey.shade100,
+                              width: 1),
+                          color: isDarkMode(context)
+                              ? const Color(DarkContainerColor)
+                              : Colors.white,
                           boxShadow: [
                             isDarkMode(context)
                                 ? const BoxShadow()
@@ -223,7 +229,12 @@ class StoreSelectionState extends State<StoreSelection> {
                                     blurRadius: 5,
                                   ),
                           ],
-                          image: DecorationImage(image: NetworkImage(Banner_Url), fit: BoxFit.cover, colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken))),
+                          image: DecorationImage(
+                              image: NetworkImage(Banner_Url),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.5),
+                                  BlendMode.darken))),
                     ),
             ),
             Container(
@@ -235,12 +246,14 @@ class StoreSelectionState extends State<StoreSelection> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: CircularProgressIndicator.adaptive(
-                          valueColor: AlwaysStoppedAnimation(Color(COLOR_PRIMARY)),
+                          valueColor:
+                              AlwaysStoppedAnimation(Color(COLOR_PRIMARY)),
                         ),
                       );
                     }
 
-                    if (snapshot.hasData || (snapshot.data?.isNotEmpty ?? false)) {
+                    if (snapshot.hasData ||
+                        (snapshot.data?.isNotEmpty ?? false)) {
                       return GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -250,9 +263,16 @@ class StoreSelectionState extends State<StoreSelection> {
                             preSectionList.clear();
                             preSectionList.addAll(snapshot.data!);
                           }
-                          return snapshot.data != null ? buildCuisineCell(snapshot.data![index]) : showEmptyState('No Categories'.tr(), context);
+                          return snapshot.data != null
+                              ? buildCuisineCell(snapshot.data![index])
+                              : showEmptyState('No Categories'.tr(), context);
                         },
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 0, crossAxisSpacing: 8, mainAxisExtent: 200),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 0,
+                                crossAxisSpacing: 8,
+                                mainAxisExtent: 200),
                       );
                     }
                     return const CircularProgressIndicator();
@@ -370,7 +390,8 @@ class StoreSelectionState extends State<StoreSelection> {
 
             auth.User? firebaseUser = auth.FirebaseAuth.instance.currentUser;
             if (firebaseUser != null) {
-              User? user = await FireStoreUtils.getCurrentUser(firebaseUser.uid);
+              User? user =
+                  await FireStoreUtils.getCurrentUser(firebaseUser.uid);
 
               if (user!.role == USER_ROLE_CUSTOMER) {
                 user.active = true;
@@ -381,11 +402,15 @@ class StoreSelectionState extends State<StoreSelection> {
                 serviceTypeFlag = sectionModel.serviceTypeFlag.toString();
                 isDineEnable = sectionModel.dineInActive!;
                 ecommarceDileveryCharges = sectionModel.delivery_charge!;
-                COLOR_PRIMARY = int.parse(sectionModel.color!.replaceFirst("#", "0xff"));
-                user.fcmToken = await FireStoreUtils.firebaseMessaging.getToken() ?? '';
+                COLOR_PRIMARY =
+                    int.parse(sectionModel.color!.replaceFirst("#", "0xff"));
+                user.fcmToken =
+                    await FireStoreUtils.firebaseMessaging.getToken() ?? '';
                 await FireStoreUtils.updateCurrentUser(user);
                 if (sectionModel.serviceTypeFlag == "ecommerce-service") {
-                  await Provider.of<CartDatabase>(context, listen: false).allCartProducts.then((value) {
+                  await Provider.of<CartDatabase>(context, listen: false)
+                      .allCartProducts
+                      .then((value) {
                     if (value.isNotEmpty) {
                       showAlertDialog(context, user, sectionModel);
                     } else {
@@ -399,7 +424,9 @@ class StoreSelectionState extends State<StoreSelection> {
                 } else if (sectionModel.serviceTypeFlag == "parcel_delivery") {
                   push(context, ParcelDahBoard(user: user));
                 } else {
-                  await Provider.of<CartDatabase>(context, listen: false).allCartProducts.then((value) {
+                  await Provider.of<CartDatabase>(context, listen: false)
+                      .allCartProducts
+                      .then((value) {
                     if (value.isNotEmpty) {
                       showAlertDialog(context, user, sectionModel);
                     } else {
@@ -419,7 +446,8 @@ class StoreSelectionState extends State<StoreSelection> {
                 serviceTypeFlag = sectionModel.serviceTypeFlag.toString();
                 isDineEnable = sectionModel.dineInActive!;
                 ecommarceDileveryCharges = sectionModel.delivery_charge!;
-                COLOR_PRIMARY = int.parse(sectionModel.color!.replaceFirst("#", "0xff"));
+                COLOR_PRIMARY =
+                    int.parse(sectionModel.color!.replaceFirst("#", "0xff"));
                 if (sectionModel.serviceTypeFlag == "ecommerce-service") {
                   push(context, EcommeceDashBoardScreen(user: null));
                 } else if (sectionModel.serviceTypeFlag == "cab-service") {
@@ -440,8 +468,14 @@ class StoreSelectionState extends State<StoreSelection> {
             margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: isDarkMode(context) ? const Color(DarkContainerBorderColor) : Colors.grey.shade100, width: 1),
-              color: isDarkMode(context) ? const Color(DarkContainerColor) : Colors.white,
+              border: Border.all(
+                  color: isDarkMode(context)
+                      ? const Color(DarkContainerBorderColor)
+                      : Colors.grey.shade100,
+                  width: 1),
+              color: isDarkMode(context)
+                  ? const Color(DarkContainerColor)
+                  : Colors.white,
               boxShadow: [
                 isDarkMode(context)
                     ? const BoxShadow()
@@ -457,7 +491,10 @@ class StoreSelectionState extends State<StoreSelection> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.network(
-                    (sectionModel.sectionImage == null || sectionModel.sectionImage!.isEmpty) ? placeholderImage : sectionModel.sectionImage.toString(),
+                    (sectionModel.sectionImage == null ||
+                            sectionModel.sectionImage!.isEmpty)
+                        ? placeholderImage
+                        : sectionModel.sectionImage.toString(),
                     height: 75,
                     width: 75,
                     fit: BoxFit.contain,
@@ -478,7 +515,11 @@ class StoreSelectionState extends State<StoreSelection> {
   }
 
   Future<void> getLanguages() async {
-    await FireStoreUtils.firestore.collection(Setting).doc("languages").get().then((value) {
+    await FireStoreUtils.firestore
+        .collection(Setting)
+        .doc("languages")
+        .get()
+        .then((value) {
       List list = value.data()!["list"];
       isLanguageShown = (list.isNotEmpty);
     });
@@ -509,7 +550,8 @@ class StoreSelectionState extends State<StoreSelection> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Alert!"),
-      content: const Text("If you select this Section/Service, your previously added items will be removed from the cart."),
+      content: const Text(
+          "If you select this Section/Service, your previously added items will be removed from the cart."),
       actions: [
         cancelButton,
         okButton,

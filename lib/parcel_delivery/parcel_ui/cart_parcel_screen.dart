@@ -47,7 +47,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mercadopago_sdk/mercadopago_sdk.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+// import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class CartParcelScreen extends StatefulWidget {
   ParcelOrderModel parcelOrder;
@@ -69,9 +69,9 @@ class _CartParcelScreenState extends State<CartParcelScreen> {
     super.initState();
     getTexDetails();
     getPaymentSettingData();
-    _razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWaller);
-    _razorPay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    // _razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    // _razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWaller);
+    // _razorPay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     coupon = _fireStoreUtils.getParcelCoupan();
   }
 
@@ -1132,7 +1132,7 @@ class _CartParcelScreenState extends State<CartParcelScreen> {
   //   );
   // }
 
-  final Razorpay _razorPay = Razorpay();
+  // final Razorpay _razorPay = Razorpay();
 
   Stream<DocumentSnapshot<Map<String, dynamic>>>? userQuery;
   final fireStoreUtils = FireStoreUtils();
@@ -1496,7 +1496,7 @@ class _CartParcelScreenState extends State<CartParcelScreen> {
     };
 
     try {
-      _razorPay.open(options);
+     // _razorPay.open(options);
     } catch (e) {
       debugPrint('Error: $e');
     }
@@ -1827,44 +1827,44 @@ class _CartParcelScreenState extends State<CartParcelScreen> {
     return data['status'];
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    Navigator.pop(_globalKey.currentContext!);
-    print(response.orderId);
-    print(response.paymentId);
+  // void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  //   Navigator.pop(_globalKey.currentContext!);
+  //   print(response.orderId);
+  //   print(response.paymentId);
 
-    placeParcelOrder();
-    ScaffoldMessenger.of(_globalKey.currentContext!).showSnackBar(SnackBar(
-      content: Text(
-        "Payment Successful!!\n".tr() + response.orderId!,
-      ),
-      backgroundColor: Colors.green.shade400,
-      duration: const Duration(seconds: 6),
-    ));
-  }
+  //   placeParcelOrder();
+  //   ScaffoldMessenger.of(_globalKey.currentContext!).showSnackBar(SnackBar(
+  //     content: Text(
+  //       "Payment Successful!!\n".tr() + response.orderId!,
+  //     ),
+  //     backgroundColor: Colors.green.shade400,
+  //     duration: const Duration(seconds: 6),
+  //   ));
+  // }
 
-  void _handleExternalWaller(ExternalWalletResponse response) {
-    Navigator.pop(_globalKey.currentContext!);
-    ScaffoldMessenger.of(_globalKey.currentContext!).showSnackBar(SnackBar(
-      content: Text(
-        "Payment Proccessing Via\n".tr() + response.walletName!,
-      ),
-      backgroundColor: Colors.blue.shade400,
-      duration: const Duration(seconds: 8),
-    ));
-  }
+  // void _handleExternalWaller(ExternalWalletResponse response) {
+  //   Navigator.pop(_globalKey.currentContext!);
+  //   ScaffoldMessenger.of(_globalKey.currentContext!).showSnackBar(SnackBar(
+  //     content: Text(
+  //       "Payment Proccessing Via\n".tr() + response.walletName!,
+  //     ),
+  //     backgroundColor: Colors.blue.shade400,
+  //     duration: const Duration(seconds: 8),
+  //   ));
+  // }
 
-  void _handlePaymentError(PaymentFailureResponse response) {
-    Navigator.pop(_globalKey.currentContext!);
-    print(response.code);
-    RazorPayFailedModel lom = RazorPayFailedModel.fromJson(jsonDecode(response.message!.toString()));
-    ScaffoldMessenger.of(_globalKey.currentContext!).showSnackBar(SnackBar(
-      content: Text(
-        "Payment Failed!!\n".tr() + lom.error.description,
-      ),
-      backgroundColor: Colors.red.shade400,
-      duration: const Duration(seconds: 8),
-    ));
-  }
+  // void _handlePaymentError(PaymentFailureResponse response) {
+  //   Navigator.pop(_globalKey.currentContext!);
+  //   print(response.code);
+  //   RazorPayFailedModel lom = RazorPayFailedModel.fromJson(jsonDecode(response.message!.toString()));
+  //   ScaffoldMessenger.of(_globalKey.currentContext!).showSnackBar(SnackBar(
+  //     content: Text(
+  //       "Payment Failed!!\n".tr() + lom.error.description,
+  //     ),
+  //     backgroundColor: Colors.red.shade400,
+  //     duration: const Duration(seconds: 8),
+  //   ));
+  // }
 
   ///FlutterWave Payment Method
   String? _ref;

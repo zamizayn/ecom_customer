@@ -63,7 +63,7 @@ const SECOND_MILLIS = 1000;
 const MINUTE_MILLIS = 60 * SECOND_MILLIS;
 const HOUR_MILLIS = 60 * MINUTE_MILLIS;
 String SERVER_KEY = 'Replace your key';
-String GOOGLE_API_KEY = '';
+String GOOGLE_API_KEY = 'AIzaSyBSPpDj-eEvsuvzDhqqVEdk1tqIKZ-2mLU';
 
 const ORDER_STATUS_PLACED = 'Order Placed';
 const ORDER_STATUS_ACCEPTED = 'Order Accepted';
@@ -83,7 +83,8 @@ const BOOKREQUEST = 'TableBook';
 
 const STRIPE_CURRENCY_CODE = 'USD';
 
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51JSxh2SBrhOQ6gKpCaW25ZzepUsITRbJrZuJWBAvRqotTspPkAbuIAlS046R0JS4YCsF1SZsbMew6NX00Imr6WeV00lpd6mjGp';
+const STRIPE_PUBLISHABLE_KEY =
+    'pk_test_51JSxh2SBrhOQ6gKpCaW25ZzepUsITRbJrZuJWBAvRqotTspPkAbuIAlS046R0JS4YCsF1SZsbMew6NX00Imr6WeV00lpd6mjGp';
 
 const USER_ROLE_DRIVER = 'driver';
 const USER_ROLE_CUSTOMER = 'customer';
@@ -126,7 +127,8 @@ String razorpayKey = "";
 String razorpaySecret = "";
 int decimal = 2;
 
-String placeholderImage = 'https://firebasestorage.googleapis.com/v0/b/emart-8d99f.appspot.com/o/images%2Flogo_placeholder.png?alt=media&token=9593b0c4-6f11-4979-917f-08fa895318c1';
+String placeholderImage =
+    'https://firebasestorage.googleapis.com/v0/b/emart-8d99f.appspot.com/o/images%2Flogo_placeholder.png?alt=media&token=9593b0c4-6f11-4979-917f-08fa895318c1';
 
 String getReferralCode() {
   var rng = Random();
@@ -160,7 +162,9 @@ String getFileName(String url) {
 
 double getTaxValue(TaxModel? taxModel, double amount) {
   double taxVal = 0;
-  if (taxModel != null && taxModel.tax_amount != null && taxModel.tax_amount! > 0) {
+  if (taxModel != null &&
+      taxModel.tax_amount != null &&
+      taxModel.tax_amount! > 0) {
     if (taxModel.tax_type == "fix") {
       taxVal = taxModel.tax_amount!.toDouble();
     } else {
@@ -173,7 +177,8 @@ double getTaxValue(TaxModel? taxModel, double amount) {
 Uri createCoordinatesUrl(double latitude, double longitude, [String? label]) {
   var uri;
   if (kIsWeb) {
-    uri = Uri.https('www.google.com', '/maps/search/', {'api': '1', 'query': '$latitude,$longitude'});
+    uri = Uri.https('www.google.com', '/maps/search/',
+        {'api': '1', 'query': '$latitude,$longitude'});
   } else if (Platform.isAndroid) {
     var query = '$latitude,$longitude';
     if (label != null) query += '($label)';
@@ -183,14 +188,16 @@ Uri createCoordinatesUrl(double latitude, double longitude, [String? label]) {
     if (label != null) params['q'] = label;
     uri = Uri.https('maps.apple.com', '/', params);
   } else {
-    uri = Uri.https('www.google.com', '/maps/search/', {'api': '1', 'query': '$latitude,$longitude'});
+    uri = Uri.https('www.google.com', '/maps/search/',
+        {'api': '1', 'query': '$latitude,$longitude'});
   }
 
   return uri;
 }
 
 String getKm(Position pos1, Position pos2) {
-  double distanceInMeters = Geolocator.distanceBetween(pos1.latitude, pos1.longitude, pos2.latitude, pos2.longitude);
+  double distanceInMeters = Geolocator.distanceBetween(
+      pos1.latitude, pos1.longitude, pos2.latitude, pos2.longitude);
   double kilometer = distanceInMeters / 1000;
   return kilometer.toStringAsFixed(decimal).toString();
 }

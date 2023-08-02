@@ -35,7 +35,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
+// import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +68,13 @@ class EcommeceDashBoardScreen extends StatefulWidget {
   final String appBarTitle;
   final DrawerSelectionEcommarce drawerSelection;
 
-  EcommeceDashBoardScreen({Key? key, required this.user, currentWidget, vendorId, appBarTitle, this.drawerSelection = DrawerSelectionEcommarce.Home})
+  EcommeceDashBoardScreen(
+      {Key? key,
+      required this.user,
+      currentWidget,
+      vendorId,
+      appBarTitle,
+      this.drawerSelection = DrawerSelectionEcommarce.Home})
       : appBarTitle = appBarTitle ?? 'Home'.tr(),
         vendorId = vendorId ?? "",
         currentWidget = currentWidget ??
@@ -103,7 +109,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      keyHash = await FlutterFacebookKeyhash.getFaceBookKeyHash ?? 'Unknown platform KeyHash';
+      keyHash = '';
+      //  keyHash = await FlutterFacebookKeyhash.getFaceBookKeyHash ?? 'Unknown platform KeyHash';
     } on PlatformException {
       keyHash = 'Failed to get Kay Hash.';
     }
@@ -183,7 +190,10 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
         child: Consumer<User>(
           builder: (context, user, _) {
             return Scaffold(
-              extendBodyBehindAppBar: _drawerSelection == DrawerSelectionEcommarce.Wallet ? true : false,
+              extendBodyBehindAppBar:
+                  _drawerSelection == DrawerSelectionEcommarce.Wallet
+                      ? true
+                      : false,
               key: key,
               drawer: Drawer(
                 child: Container(
@@ -197,42 +207,60 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                               Consumer<User>(builder: (context, user, _) {
                                 return DrawerHeader(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      displayCircleImage(user.profilePictureURL, 75, false),
+                                      displayCircleImage(
+                                          user.profilePictureURL, 75, false),
                                       Row(
                                         children: [
                                           Expanded(
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(top: 8.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
                                                   child: Text(
                                                     user.fullName(),
-                                                    style: const TextStyle(color: Colors.white),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
                                                   ),
                                                 ),
                                                 Padding(
-                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8.0),
                                                     child: Text(
                                                       user.email,
-                                                      style: const TextStyle(color: Colors.white),
+                                                      style: const TextStyle(
+                                                          color: Colors.white),
                                                     )),
                                               ],
                                             ),
                                           ),
                                           Row(
                                             children: [
-                                              !themeChange.darkTheme ? const Icon(Icons.light_mode_sharp) : const Icon(Icons.nightlight),
+                                              !themeChange.darkTheme
+                                                  ? const Icon(
+                                                      Icons.light_mode_sharp)
+                                                  : const Icon(
+                                                      Icons.nightlight),
                                               Switch(
                                                 // thumb color (round icon)
                                                 splashRadius: 50.0,
-                                                activeThumbImage: const AssetImage('https://lists.gnu.org/archive/html/emacs-devel/2015-10/pngR9b4lzUy39.png'),
-                                                inactiveThumbImage: const AssetImage('http://wolfrosch.com/_img/works/goodies/icon/vim@2x'),
+                                                activeThumbImage: const AssetImage(
+                                                    'https://lists.gnu.org/archive/html/emacs-devel/2015-10/pngR9b4lzUy39.png'),
+                                                inactiveThumbImage:
+                                                    const AssetImage(
+                                                        'http://wolfrosch.com/_img/works/goodies/icon/vim@2x'),
 
                                                 value: themeChange.darkTheme,
-                                                onChanged: (value) => setState(() => themeChange.darkTheme = value),
+                                                onChanged: (value) => setState(
+                                                    () => themeChange
+                                                        .darkTheme = value),
                                               ),
                                             ],
                                           ),
@@ -249,15 +277,18 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.Dashboard,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.Dashboard,
                                   title: const Text('Dashboard').tr(),
                                   onTap: () {
                                     Navigator.pop(context);
-                                    pushAndRemoveUntil(context, const StoreSelection(), false);
+                                    pushAndRemoveUntil(
+                                        context, const StoreSelection(), false);
                                   },
                                   leading: Image.asset(
                                     'assets/images/dashboard.png',
-                                    color: _drawerSelection == DrawerSelectionEcommarce.Cuisines
+                                    color: _drawerSelection ==
+                                            DrawerSelectionEcommarce.Cuisines
                                         ? Color(COLOR_PRIMARY)
                                         : isDarkMode(context)
                                             ? Colors.grey.shade200
@@ -271,12 +302,14 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.Home,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.Home,
                                   title: const Text('Stores').tr(),
                                   onTap: () {
                                     Navigator.pop(context);
                                     setState(() {
-                                      _drawerSelection = DrawerSelectionEcommarce.Home;
+                                      _drawerSelection =
+                                          DrawerSelectionEcommarce.Home;
                                       _appBarTitle = 'Stores'.tr();
                                       _currentWidget = EcommerceHomeScreen(
                                         user: MyAppState.currentUser,
@@ -290,10 +323,12 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                    selected: _drawerSelection == DrawerSelectionEcommarce.Cuisines,
+                                    selected: _drawerSelection ==
+                                        DrawerSelectionEcommarce.Cuisines,
                                     leading: Image.asset(
                                       'assets/images/category.png',
-                                      color: _drawerSelection == DrawerSelectionEcommarce.Cuisines
+                                      color: _drawerSelection ==
+                                              DrawerSelectionEcommarce.Cuisines
                                           ? Color(COLOR_PRIMARY)
                                           : isDarkMode(context)
                                               ? Colors.grey.shade200
@@ -305,7 +340,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                     onTap: () {
                                       Navigator.pop(context);
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.Cuisines;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.Cuisines;
                                         _appBarTitle = 'Categories'.tr();
                                         _currentWidget = const CuisinesScreen();
                                       });
@@ -317,14 +353,16 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                   style: ListTileStyle.drawer,
                                   selectedColor: Color(COLOR_PRIMARY),
                                   child: ListTile(
-                                      selected: _drawerSelection == DrawerSelectionEcommarce.dineIn,
+                                      selected: _drawerSelection ==
+                                          DrawerSelectionEcommarce.dineIn,
                                       leading: const Icon(Icons.restaurant),
                                       title: const Text('Dine-in').tr(),
                                       onTap: () {
                                         Navigator.pop(context);
 
                                         setState(() {
-                                          _drawerSelection = DrawerSelectionEcommarce.dineIn;
+                                          _drawerSelection =
+                                              DrawerSelectionEcommarce.dineIn;
                                           _appBarTitle = 'Dine-In'.tr();
                                           _currentWidget = DineInScreen(
                                             user: MyAppState.currentUser!,
@@ -337,7 +375,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                    selected: _drawerSelection == DrawerSelectionEcommarce.Search,
+                                    selected: _drawerSelection ==
+                                        DrawerSelectionEcommarce.Search,
                                     title: const Text('Search').tr(),
                                     leading: const Icon(Icons.search),
                                     onTap: () async {
@@ -357,7 +396,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.LikedStore,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.LikedStore,
                                   title: const Text('Favourite Stores').tr(),
                                   onTap: () {
                                     Navigator.pop(context);
@@ -365,9 +405,11 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                       push(context, const AuthScreen());
                                     } else {
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.LikedStore;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.LikedStore;
                                         _appBarTitle = 'Favourite Stores'.tr();
-                                        _currentWidget = const FavouriteStoreScreen();
+                                        _currentWidget =
+                                            const FavouriteStoreScreen();
                                       });
                                     }
                                   },
@@ -378,7 +420,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.LikedProduct,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.LikedProduct,
                                   title: const Text('Favourite Item').tr(),
                                   onTap: () {
                                     Navigator.pop(context);
@@ -386,9 +429,12 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                       push(context, const AuthScreen());
                                     } else {
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.LikedProduct;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce
+                                                .LikedProduct;
                                         _appBarTitle = 'Favourite Item'.tr();
-                                        _currentWidget = const FavouriteItemScreen();
+                                        _currentWidget =
+                                            const FavouriteItemScreen();
                                       });
                                     }
                                   },
@@ -396,13 +442,16 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 ),
                               ),
                               Visibility(
-                                visible: UserPreference.getWalletData() ?? false,
+                                visible:
+                                    UserPreference.getWalletData() ?? false,
                                 child: ListTileTheme(
                                   style: ListTileStyle.drawer,
                                   selectedColor: Color(COLOR_PRIMARY),
                                   child: ListTile(
-                                    selected: _drawerSelection == DrawerSelectionEcommarce.Wallet,
-                                    leading: const Icon(Icons.account_balance_wallet_outlined),
+                                    selected: _drawerSelection ==
+                                        DrawerSelectionEcommarce.Wallet,
+                                    leading: const Icon(
+                                        Icons.account_balance_wallet_outlined),
                                     title: const Text('Wallet').tr(),
                                     onTap: () {
                                       Navigator.pop(context);
@@ -410,7 +459,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                         push(context, const AuthScreen());
                                       } else {
                                         setState(() {
-                                          _drawerSelection = DrawerSelectionEcommarce.Wallet;
+                                          _drawerSelection =
+                                              DrawerSelectionEcommarce.Wallet;
                                           _appBarTitle = 'Wallet'.tr();
                                           _currentWidget = const WalletScreen();
                                         });
@@ -423,7 +473,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.Cart,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.Cart,
                                   leading: const Icon(CupertinoIcons.cart),
                                   title: const Text('Cart').tr(),
                                   onTap: () {
@@ -432,7 +483,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                       push(context, const AuthScreen());
                                     } else {
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.Cart;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.Cart;
                                         _appBarTitle = 'Your Cart'.tr();
                                         _currentWidget = const CartScreen();
                                       });
@@ -444,8 +496,13 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.referral,
-                                  leading:  Image.asset('assets/images/refer.png',width: 28,color: Colors.grey,),
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.referral,
+                                  leading: Image.asset(
+                                    'assets/images/refer.png',
+                                    width: 28,
+                                    color: Colors.grey,
+                                  ),
                                   title: const Text('Refer a friend').tr(),
                                   onTap: () async {
                                     if (MyAppState.currentUser == null) {
@@ -462,7 +519,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.Profile,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.Profile,
                                   leading: const Icon(CupertinoIcons.person),
                                   title: const Text('Profile').tr(),
                                   onTap: () {
@@ -471,7 +529,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                       push(context, const AuthScreen());
                                     } else {
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.Profile;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.Profile;
                                         _appBarTitle = 'My Profile'.tr();
                                         _currentWidget = const ProfileScreen();
                                       });
@@ -483,10 +542,12 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.Orders,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.Orders,
                                   leading: Image.asset(
                                     'assets/images/truck.png',
-                                    color: _drawerSelection == DrawerSelectionEcommarce.Orders
+                                    color: _drawerSelection ==
+                                            DrawerSelectionEcommarce.Orders
                                         ? Color(COLOR_PRIMARY)
                                         : isDarkMode(context)
                                             ? Colors.grey.shade200
@@ -501,7 +562,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                       push(context, const AuthScreen());
                                     } else {
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.Orders;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.Orders;
                                         _appBarTitle = 'Orders'.tr();
                                         _currentWidget = OrdersScreen();
                                       });
@@ -515,10 +577,12 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                   style: ListTileStyle.drawer,
                                   selectedColor: Color(COLOR_PRIMARY),
                                   child: ListTile(
-                                    selected: _drawerSelection == DrawerSelectionEcommarce.MyBooking,
+                                    selected: _drawerSelection ==
+                                        DrawerSelectionEcommarce.MyBooking,
                                     leading: Image.asset(
                                       'assets/images/your_booking.png',
-                                      color: _drawerSelection == DrawerSelectionEcommarce.MyBooking
+                                      color: _drawerSelection ==
+                                              DrawerSelectionEcommarce.MyBooking
                                           ? Color(COLOR_PRIMARY)
                                           : isDarkMode(context)
                                               ? Colors.grey.shade200
@@ -533,9 +597,13 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                         push(context, const AuthScreen());
                                       } else {
                                         setState(() {
-                                          _drawerSelection = DrawerSelectionEcommarce.MyBooking;
-                                          _appBarTitle = 'Dine-In Bookings'.tr();
-                                          _currentWidget = const MyBookingScreen();
+                                          _drawerSelection =
+                                              DrawerSelectionEcommarce
+                                                  .MyBooking;
+                                          _appBarTitle =
+                                              'Dine-In Bookings'.tr();
+                                          _currentWidget =
+                                              const MyBookingScreen();
                                         });
                                       }
                                     },
@@ -548,10 +616,13 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                   style: ListTileStyle.drawer,
                                   selectedColor: Color(COLOR_PRIMARY),
                                   child: ListTile(
-                                    selected: _drawerSelection == DrawerSelectionEcommarce.chooseLanguage,
+                                    selected: _drawerSelection ==
+                                        DrawerSelectionEcommarce.chooseLanguage,
                                     leading: Icon(
                                       Icons.language,
-                                      color: _drawerSelection == DrawerSelectionEcommarce.chooseLanguage
+                                      color: _drawerSelection ==
+                                              DrawerSelectionEcommarce
+                                                  .chooseLanguage
                                           ? Color(COLOR_PRIMARY)
                                           : isDarkMode(context)
                                               ? Colors.grey.shade200
@@ -561,7 +632,9 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                     onTap: () {
                                       Navigator.pop(context);
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.chooseLanguage;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce
+                                                .chooseLanguage;
                                         _appBarTitle = 'Language'.tr();
                                         _currentWidget = LanguageChooseScreen(
                                           isContainer: true,
@@ -575,7 +648,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.termsCondition,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.termsCondition,
                                   leading: const Icon(Icons.policy),
                                   title: const Text('Terms and Condition'),
                                   onTap: () async {
@@ -587,7 +661,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.privacyPolicy,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.privacyPolicy,
                                   leading: const Icon(Icons.privacy_tip),
                                   title: const Text('Privacy policy').tr(),
                                   onTap: () async {
@@ -599,8 +674,10 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.inbox,
-                                  leading: const Icon(CupertinoIcons.chat_bubble_2_fill),
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.inbox,
+                                  leading: const Icon(
+                                      CupertinoIcons.chat_bubble_2_fill),
                                   title: const Text('Store Inbox').tr(),
                                   onTap: () {
                                     if (MyAppState.currentUser == null) {
@@ -609,7 +686,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                     } else {
                                       Navigator.pop(context);
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.inbox;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.inbox;
                                         _appBarTitle = 'Store Inbox'.tr();
                                         _currentWidget = const InboxScreen();
                                       });
@@ -621,8 +699,10 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.driver,
-                                  leading: const Icon(CupertinoIcons.chat_bubble_2_fill),
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.driver,
+                                  leading: const Icon(
+                                      CupertinoIcons.chat_bubble_2_fill),
                                   title: const Text('Driver Inbox').tr(),
                                   onTap: () {
                                     if (MyAppState.currentUser == null) {
@@ -631,9 +711,11 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                     } else {
                                       Navigator.pop(context);
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.driver;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.driver;
                                         _appBarTitle = 'Driver Inbox'.tr();
-                                        _currentWidget = const InboxDriverScreen();
+                                        _currentWidget =
+                                            const InboxDriverScreen();
                                       });
                                     }
                                   },
@@ -643,24 +725,38 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                 style: ListTileStyle.drawer,
                                 selectedColor: Color(COLOR_PRIMARY),
                                 child: ListTile(
-                                  selected: _drawerSelection == DrawerSelectionEcommarce.Logout,
+                                  selected: _drawerSelection ==
+                                      DrawerSelectionEcommarce.Logout,
                                   leading: const Icon(Icons.logout),
-                                  title: Text((MyAppState.currentUser == null) ? 'Log In'.tr() : 'Log Out'.tr()),
+                                  title: Text((MyAppState.currentUser == null)
+                                      ? 'Log In'.tr()
+                                      : 'Log Out'.tr()),
                                   onTap: () async {
                                     if (MyAppState.currentUser == null) {
-                                      pushAndRemoveUntil(context, const AuthScreen(), false);
+                                      pushAndRemoveUntil(
+                                          context, const AuthScreen(), false);
                                     } else {
                                       Navigator.pop(context);
                                       //user.active = false;
-                                      user.lastOnlineTimestamp = Timestamp.now();
+                                      user.lastOnlineTimestamp =
+                                          Timestamp.now();
                                       user.fcmToken = "";
-                                      await FireStoreUtils.updateCurrentUser(user);
-                                      await auth.FirebaseAuth.instance.signOut();
+                                      await FireStoreUtils.updateCurrentUser(
+                                          user);
+                                      await auth.FirebaseAuth.instance
+                                          .signOut();
                                       MyAppState.currentUser = null;
                                       COLOR_PRIMARY = 0xFF00B761;
-                                      MyAppState.selectedPosition = Position.fromMap({'latitude': 0.0, 'longitude': 0.0});
-                                      Provider.of<CartDatabase>(context, listen: false).deleteAllProducts();
-                                      pushAndRemoveUntil(context, const AuthScreen(), false);
+                                      MyAppState.selectedPosition =
+                                          Position.fromMap({
+                                        'latitude': 0.0,
+                                        'longitude': 0.0
+                                      });
+                                      Provider.of<CartDatabase>(context,
+                                              listen: false)
+                                          .deleteAllProducts();
+                                      pushAndRemoveUntil(
+                                          context, const AuthScreen(), false);
                                     }
                                   },
                                 ),
@@ -676,13 +772,17 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                     )),
               ),
               appBar: AppBar(
-                elevation: _drawerSelection == DrawerSelectionEcommarce.Wallet ? 0 : 0,
-                centerTitle: _drawerSelection == DrawerSelectionEcommarce.Wallet ? true : false,
-                backgroundColor: _drawerSelection == DrawerSelectionEcommarce.Wallet
-                    ? Colors.transparent
-                    : isDarkMode(context)
-                        ? Colors.black
-                        : Colors.white,
+                elevation:
+                    _drawerSelection == DrawerSelectionEcommarce.Wallet ? 0 : 0,
+                centerTitle: _drawerSelection == DrawerSelectionEcommarce.Wallet
+                    ? true
+                    : false,
+                backgroundColor:
+                    _drawerSelection == DrawerSelectionEcommarce.Wallet
+                        ? Colors.transparent
+                        : isDarkMode(context)
+                            ? Colors.black
+                            : Colors.white,
                 //isDarkMode(context) ? Color(DARK_COLOR) : null,
                 leading: IconButton(
                     visualDensity: const VisualDensity(horizontal: -4),
@@ -710,18 +810,23 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                       //isDarkMode(context) ? Colors.white : Colors.black,
                       fontWeight: FontWeight.normal),
                 ),
-                actions: _drawerSelection == DrawerSelectionEcommarce.Wallet || _drawerSelection == DrawerSelectionEcommarce.MyBooking
+                actions: _drawerSelection == DrawerSelectionEcommarce.Wallet ||
+                        _drawerSelection == DrawerSelectionEcommarce.MyBooking
                     ? []
                     : _drawerSelection == DrawerSelectionEcommarce.dineIn
                         ? [
                             IconButton(
                                 padding: const EdgeInsets.only(right: 20),
-                                visualDensity: const VisualDensity(horizontal: -4),
+                                visualDensity:
+                                    const VisualDensity(horizontal: -4),
                                 tooltip: 'QrCode'.tr(),
                                 icon: Image(
-                                  image: const AssetImage("assets/images/qrscan.png"),
+                                  image: const AssetImage(
+                                      "assets/images/qrscan.png"),
                                   width: 20,
-                                  color: isDarkMode(context) ? Colors.white : Colors.black,
+                                  color: isDarkMode(context)
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 onPressed: () {
                                   push(
@@ -732,12 +837,15 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                   );
                                 }),
                             IconButton(
-                                visualDensity: const VisualDensity(horizontal: -4),
+                                visualDensity:
+                                    const VisualDensity(horizontal: -4),
                                 padding: const EdgeInsets.only(right: 10),
                                 icon: Image(
-                                  image: const AssetImage("assets/images/search.png"),
+                                  image: const AssetImage(
+                                      "assets/images/search.png"),
                                   width: 20,
-                                  color: isDarkMode(context) ? Colors.white : null,
+                                  color:
+                                      isDarkMode(context) ? Colors.white : null,
                                 ),
                                 onPressed: () {
                                   push(context, const SearchScreen());
@@ -746,12 +854,16 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                         : [
                             IconButton(
                                 padding: const EdgeInsets.only(right: 20),
-                                visualDensity: const VisualDensity(horizontal: -4),
+                                visualDensity:
+                                    const VisualDensity(horizontal: -4),
                                 tooltip: 'QrCode'.tr(),
                                 icon: Image(
-                                  image: const AssetImage("assets/images/qrscan.png"),
+                                  image: const AssetImage(
+                                      "assets/images/qrscan.png"),
                                   width: 20,
-                                  color: isDarkMode(context) ? Colors.white : Colors.black,
+                                  color: isDarkMode(context)
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 onPressed: () {
                                   push(
@@ -762,28 +874,36 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                   );
                                 }),
                             IconButton(
-                                visualDensity: const VisualDensity(horizontal: -4),
+                                visualDensity:
+                                    const VisualDensity(horizontal: -4),
                                 padding: const EdgeInsets.only(right: 10),
                                 icon: Image(
-                                  image: const AssetImage("assets/images/search.png"),
+                                  image: const AssetImage(
+                                      "assets/images/search.png"),
                                   width: 20,
-                                  color: isDarkMode(context) ? Colors.white : null,
+                                  color:
+                                      isDarkMode(context) ? Colors.white : null,
                                 ),
                                 onPressed: () {
                                   push(context, const SearchScreen());
                                 }),
-                            if (_currentWidget is! CartScreen || _currentWidget is! ProfileScreen)
+                            if (_currentWidget is! CartScreen ||
+                                _currentWidget is! ProfileScreen)
                               IconButton(
                                   padding: const EdgeInsets.only(right: 20),
-                                  visualDensity: const VisualDensity(horizontal: -4),
+                                  visualDensity:
+                                      const VisualDensity(horizontal: -4),
                                   tooltip: 'Cart'.tr(),
                                   icon: Stack(
                                     clipBehavior: Clip.none,
                                     children: [
                                       Image(
-                                        image: const AssetImage("assets/images/cart.png"),
+                                        image: const AssetImage(
+                                            "assets/images/cart.png"),
                                         width: 20,
-                                        color: isDarkMode(context) ? Colors.white : null,
+                                        color: isDarkMode(context)
+                                            ? Colors.white
+                                            : null,
                                       ),
                                       StreamBuilder<List<CartProduct>>(
                                         stream: cartDatabase.watchProducts,
@@ -800,18 +920,22 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                               right: -6,
                                               top: -8,
                                               child: Container(
-                                                padding: const EdgeInsets.all(4),
+                                                padding:
+                                                    const EdgeInsets.all(4),
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: Color(COLOR_PRIMARY),
                                                 ),
-                                                constraints: const BoxConstraints(
+                                                constraints:
+                                                    const BoxConstraints(
                                                   minWidth: 12,
                                                   minHeight: 12,
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    cartCount <= 99 ? '$cartCount' : '+99',
+                                                    cartCount <= 99
+                                                        ? '$cartCount'
+                                                        : '+99',
                                                     style: const TextStyle(
                                                       color: Colors.white,
                                                       // fontSize: 10,
@@ -831,7 +955,8 @@ class _EcommeceDashBoardScreen extends State<EcommeceDashBoardScreen> {
                                       push(context, const AuthScreen());
                                     } else {
                                       setState(() {
-                                        _drawerSelection = DrawerSelectionEcommarce.Cart;
+                                        _drawerSelection =
+                                            DrawerSelectionEcommarce.Cart;
                                         _appBarTitle = 'Your Cart'.tr();
                                         _currentWidget = const CartScreen();
                                       });

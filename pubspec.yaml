@@ -37,7 +37,7 @@ dependencies:
   image_picker: ^0.8.7+5
   url_launcher: ^6.1.11
   progress_dialog_null_safe: ^1.0.7
-  intl: ^0.17.0
+  intl: ^0.18.0
   cached_network_image: ^3.2.3
   uuid: ^3.0.7
   video_thumbnail: ^0.5.3
@@ -94,12 +94,12 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/logo_new.png
-  image_dark: assets/images/logo_new.png
+  image: assets/images/app_logo_new.png
+  image_dark: assets/images/app_logo_new.png
 
   android_12:
-    image: assets/images/logo_new.png
-    image_dark: assets/images/logo_new.png
+    image: assets/images/app_logo_new.png
+    image_dark: assets/images/app_logo_new.png
 
   web: false
 

@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:bluetooth_thermal_printer/bluetooth_thermal_printer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,7 +26,6 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart' as lottie;
-import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -1001,22 +999,22 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   }
 
   Future<void> printTicket() async {
-    String? isConnected = await BluetoothThermalPrinter.connectionStatus;
+    // String? isConnected = await BluetoothThermalPrinter.connectionStatus;
 
-    if (isConnected == "true") {
-      List<int> bytes = await getTicket();
-      log(bytes.toString());
-      String base64Image = base64Encode(bytes);
+    // if (isConnected == "true") {
+    //   List<int> bytes = await getTicket();
+    //   log(bytes.toString());
+    //   String base64Image = base64Encode(bytes);
 
-      log(base64Image.toString());
+    //   log(base64Image.toString());
 
-      final result = await BluetoothThermalPrinter.writeBytes(bytes);
-      if (result == "true") {
-        showAlertDialog(context, "Successfully".tr(), "Invoice print successfully".tr(), true);
-      }
-    } else {
-      getBluetooth();
-    }
+    //   final result = await BluetoothThermalPrinter.writeBytes(bytes);
+    //   if (result == "true") {
+    //     showAlertDialog(context, "Successfully".tr(), "Invoice print successfully".tr(), true);
+    //   }
+    // } else {
+    //   getBluetooth();
+    // }
   }
 
   Future<List<int>> getTicket() async {
@@ -1369,12 +1367,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   List availableBluetoothDevices = [];
 
   Future<void> getBluetooth() async {
-    final List? bluetooths = await BluetoothThermalPrinter.getBluetooths;
-    print("printer status $bluetooths");
-    setState(() {
-      availableBluetoothDevices = bluetooths!;
-      showLoadingAlert();
-    });
+    // final List? bluetooths = await BluetoothThermalPrinter.getBluetooths;
+    // print("printer status $bluetooths");
+    // setState(() {
+    //   availableBluetoothDevices = bluetooths!;
+    //   showLoadingAlert();
+    // });
   }
 
   showLoadingAlert() {
@@ -1413,11 +1411,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   }
 
   Future<void> setConnect(String mac) async {
-    final String? result = await BluetoothThermalPrinter.connect(mac);
-    print("state conneected $result");
-    if (result == "true") {
-      printTicket();
-    }
+    // final String? result = await BluetoothThermalPrinter.connect(mac);
+    // print("state conneected $result");
+    // if (result == "true") {
+    //   printTicket();
+    // }
   }
 
   // Widget buildOrderSummaryCard() {

@@ -41,7 +41,8 @@ class _OffersScreenState extends State<OffersScreen> {
     await FireStoreUtils().getAllCoupons().then((value) {
       value.forEach((element1) {
         widget.vendors.forEach((element) {
-          if (element1.storeId == element.id && element1.expireOfferDate!.toDate().isAfter(DateTime.now())) {
+          if (element1.storeId == element.id &&
+              element1.expireOfferDate!.toDate().isAfter(DateTime.now())) {
             offersList.add(element1);
             offerVendorList.add(element);
           }
@@ -72,7 +73,10 @@ class _OffersScreenState extends State<OffersScreen> {
                     left: 20,
                     child: Text(
                       "OFFERS\nFOR YOU".tr(),
-                      style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold),
                     )),
                 Positioned(
                   left: 10,
@@ -84,8 +88,10 @@ class _OffersScreenState extends State<OffersScreen> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        margin: const EdgeInsets.only(left: 5, top: 10, right: 5),
-                        decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.black38),
+                        margin:
+                            const EdgeInsets.only(left: 5, top: 10, right: 5),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.black38),
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Image(
@@ -107,7 +113,8 @@ class _OffersScreenState extends State<OffersScreen> {
                       itemCount: offerVendorList.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
-                        return offerItemView(offerVendorList[index], offersList[index]);
+                        return offerItemView(
+                            offerVendorList[index], offersList[index]);
                       }),
             ),
           ],
@@ -145,12 +152,17 @@ class _OffersScreenState extends State<OffersScreen> {
                 left: 50,
                 right: 50,
               ),
-              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/offer_code_bg.png"))),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/offer_code_bg.png"))),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
                   offerModel.offerCode!,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, letterSpacing: 0.9),
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.9),
                 ),
               )),
           GestureDetector(
@@ -172,7 +184,10 @@ class _OffersScreenState extends State<OffersScreen> {
               margin: const EdgeInsets.only(top: 30, bottom: 30),
               child: Text(
                 "COPY CODE".tr(),
-                style: TextStyle(color: Color(COLOR_PRIMARY), fontWeight: FontWeight.w500, letterSpacing: 0.1),
+                style: TextStyle(
+                    color: Color(COLOR_PRIMARY),
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.1),
               ),
             ),
           ),
@@ -181,15 +196,25 @@ class _OffersScreenState extends State<OffersScreen> {
             child: RichText(
               text: TextSpan(
                 text: "Use code ".tr(),
-                style: const TextStyle(fontSize: 16.0, color: Colors.grey, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w700),
                 children: <TextSpan>[
                   TextSpan(
                     text: offerModel.offerCode,
-                    style: TextStyle(color: Color(COLOR_PRIMARY), fontWeight: FontWeight.w500, letterSpacing: 0.1),
+                    style: TextStyle(
+                        color: Color(COLOR_PRIMARY),
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.1),
                   ),
                   TextSpan(
-                    text: " & get".tr() + " ${offerModel.discountTypeOffer == "Fix Price" ? symbol : ""}${offerModel.discountOffer}${offerModel.discountTypeOffer == "Percentage" ? "% off" : " off"} ",
-                    style: const TextStyle(fontSize: 16.0, color: Colors.grey, fontWeight: FontWeight.w700),
+                    text: " & get".tr() +
+                        " ${offerModel.discountTypeOffer == "Fix Price" ? symbol : ""}${offerModel.discountOffer}${offerModel.discountTypeOffer == "Percentage" ? "% off" : " off"} ",
+                    style: const TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
@@ -235,7 +260,8 @@ class _OffersScreenState extends State<OffersScreen> {
                           color: Colors.black12,
                         ),
                         child: const Image(
-                          image: AssetImage("assets/images/place_holder_offer.png"),
+                          image: AssetImage(
+                              "assets/images/place_holder_offer.png"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -257,17 +283,21 @@ class _OffersScreenState extends State<OffersScreen> {
                         ),
                         vendorModel == null
                             ? Container()
-                            : vendorModel.id.toString() == offerModel.storeId.toString()
+                            : vendorModel.id.toString() ==
+                                    offerModel.storeId.toString()
                                 ? Container(
-                                    margin: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 0, 5, 0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
                                           onTap: () {
                                             push(
                                               context,
-                                              NewVendorProductsScreen(vendorModel: vendorModel),
+                                              NewVendorProductsScreen(
+                                                  vendorModel: vendorModel),
                                             );
                                           },
                                           child: Text(vendorModel.title,
@@ -283,11 +313,14 @@ class _OffersScreenState extends State<OffersScreen> {
                                           height: 10,
                                         ),
                                         Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             const ImageIcon(
-                                              AssetImage('assets/images/location3x.png'),
+                                              AssetImage(
+                                                  'assets/images/location3x.png'),
                                               size: 15,
                                               color: Color(0xff9091A4),
                                             ),
@@ -297,7 +330,8 @@ class _OffersScreenState extends State<OffersScreen> {
                                             Expanded(
                                               child: Text(vendorModel.location,
                                                   maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: const TextStyle(
                                                     letterSpacing: 0.5,
                                                     color: Color(0xff555353),
@@ -309,12 +343,14 @@ class _OffersScreenState extends State<OffersScreen> {
                                     ),
                                   )
                                 : Container(
-                                    margin: const EdgeInsets.fromLTRB(0, 0, 5, 8),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 0, 5, 8),
                                     width: MediaQuery.of(context).size.width,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text("ABS's Offer".tr(),
+                                        Text("Lelayastar's Offer".tr(),
                                             maxLines: 1,
                                             style: const TextStyle(
                                               fontSize: 16,
@@ -352,7 +388,8 @@ class _OffersScreenState extends State<OffersScreen> {
                                     ),
                                     backgroundColor: Colors.transparent,
                                     enableDrag: true,
-                                    builder: (context) => openCouponCode(context, offerModel),
+                                    builder: (context) =>
+                                        openCouponCode(context, offerModel),
                                   );
                                 },
                                 child: DottedBorder(
@@ -363,12 +400,15 @@ class _OffersScreenState extends State<OffersScreen> {
                                   strokeWidth: 2,
                                   dashPattern: const [5],
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: Container(
                                         height: 25,
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(2),
+                                          borderRadius:
+                                              BorderRadius.circular(2),
                                           color: const Color(COUPON_BG_COLOR),
                                         ),
                                         padding: const EdgeInsets.only(top: 4),
@@ -377,7 +417,11 @@ class _OffersScreenState extends State<OffersScreen> {
                                           textAlign: TextAlign.center,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, letterSpacing: 0.5, color: Color(COLOR_PRIMARY)),
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 0.5,
+                                              color: Color(COLOR_PRIMARY)),
                                         )),
                                   ),
                                 ),
@@ -386,7 +430,8 @@ class _OffersScreenState extends State<OffersScreen> {
                             const SizedBox(
                               width: 5,
                             ),
-                            vendorModel.id.toString() == offerModel.storeId.toString()
+                            vendorModel.id.toString() ==
+                                    offerModel.storeId.toString()
                                 ? Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -396,13 +441,19 @@ class _OffersScreenState extends State<OffersScreen> {
                                         color: Color(COLOR_PRIMARY),
                                       ),
                                       const SizedBox(width: 3),
-                                      Text(vendorModel.reviewsCount != 0 ? (vendorModel.reviewsSum / vendorModel.reviewsCount).toStringAsFixed(1) : 0.toString(),
+                                      Text(
+                                          vendorModel.reviewsCount != 0
+                                              ? (vendorModel.reviewsSum /
+                                                      vendorModel.reviewsCount)
+                                                  .toStringAsFixed(1)
+                                              : 0.toString(),
                                           style: const TextStyle(
                                             letterSpacing: 0.5,
                                             color: Color(0xff000000),
                                           )),
                                       const SizedBox(width: 3),
-                                      Text('(${vendorModel.reviewsCount.toStringAsFixed(1)})',
+                                      Text(
+                                          '(${vendorModel.reviewsCount.toStringAsFixed(1)})',
                                           style: const TextStyle(
                                             letterSpacing: 0.5,
                                             color: Color(0xff666666),
@@ -426,12 +477,19 @@ class _OffersScreenState extends State<OffersScreen> {
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
-                Container(width: 75, margin: const EdgeInsets.only(bottom: 10), child: const Image(image: AssetImage("assets/images/offer_badge.png"))),
+                Container(
+                    width: 75,
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: const Image(
+                        image: AssetImage("assets/images/offer_badge.png"))),
                 Container(
                   margin: const EdgeInsets.only(top: 3),
                   child: Text(
                     "${offerModel.discountTypeOffer == "Fix Price".tr() ? symbol : ""}${offerModel.discountOffer}${offerModel.discountTypeOffer == "Percentage" ? "% Off" : " Off"}",
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.7),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.7),
                   ),
                 )
               ],
