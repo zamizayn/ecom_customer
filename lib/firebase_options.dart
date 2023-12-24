@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '802498230927',
     projectId: 'emart-e2632',
     storageBucket: 'emart-e2632.appspot.com',
-    iosClientId: '802498230927-7tb5u1nbi9nfllg00p34m3t9nafqrcm8.apps.googleusercontent.com',
+    iosClientId:
+        '802498230927-7tb5u1nbi9nfllg00p34m3t9nafqrcm8.apps.googleusercontent.com',
     iosBundleId: 'com.ecom.customer',
   );
 }

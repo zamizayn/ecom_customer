@@ -80,6 +80,7 @@ dependencies:
   story_view: ^0.14.0
   flutter_share: ^2.0.0
   flutterflow_paginate_firestore: ^1.0.3+1
+  google_maps_place_picker_mb: ^3.0.2
 
 dependency_overrides:
   webview_flutter: ^4.2.1

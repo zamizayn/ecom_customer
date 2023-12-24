@@ -9,7 +9,8 @@ import 'constants.dart';
 class AppGlobal {
   static double deliveryCharges = 0.0;
 
-  static String? placeHolderImage = "";
+  static String? placeHolderImage =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png";
 
   static AppBar buildAppBar(BuildContext context, String title) {
     return AppBar(
@@ -27,7 +28,9 @@ class AppGlobal {
       ),
       title: Text(
         title,
-        style: TextStyle(color: isDarkMode(context) ? Colors.white : Colors.black, fontWeight: FontWeight.normal),
+        style: TextStyle(
+            color: isDarkMode(context) ? Colors.white : Colors.black,
+            fontWeight: FontWeight.normal),
       ),
       actions: [
         IconButton(
@@ -72,7 +75,10 @@ class AppGlobal {
           color: Color(COLOR_PRIMARY),
         ),
       ),
-      title: Text(title, style: TextStyle(color: isDarkMode(context) ? Colors.white : Colors.black)).tr(),
+      title: Text(title,
+              style: TextStyle(
+                  color: isDarkMode(context) ? Colors.white : Colors.black))
+          .tr(),
     );
   }
 }
